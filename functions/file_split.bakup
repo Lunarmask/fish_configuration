@@ -1,0 +1,84 @@
+# Split text files into smaller parts.
+
+# This was retired in favor of the newer ruby script.
+# Consider a proof of concept...
+
+function file_split
+  if test (count $argv) -gt 3
+    echo Entered too many arguments
+    file_split_format
+    echo $argv
+    return
+  else if test (count $argv) -lt 2
+    echo Please enter an amount of records per file.
+    file_split_format
+    return
+  else if test -z $argv
+    echo Please enter at least two arguments.
+    file_split_format
+    return
+  end
+
+  echo \n
+
+  set -g filepath $argv[1]
+
+  if test -e $filepath
+    echo File was found.
+
+    set -g fileparts (string split \. $filepath)
+    set -g length (count $fileparts)
+    set -g extension $fileparts[$length]
+
+    if test $argv[3] = "true"
+      set -g header (head -1 $filepath)
+      echo Headers will be copied to each new file.
+    else
+      echo Headers will not be copied to each new file.
+    end
+
+  else
+    echo File not found. Please enter a valid filepath \(argv[1]\).
+    file_split_format
+    return
+  end
+
+  set -g amount $argv[2]
+  if string match --quiet --regex '\D' amount
+    echo Invalid record split amount entered \(argv[2]\). Please enter a valid integer.
+    file_split_format
+    return
+  end
+
+  set -g increment 0
+  set -g counter 0
+
+  echo \nSplitting $filepath into files with $amount records each.\n
+
+  set -g filename $filepath\_part\_$increment\.$extension
+  echo Working on $filename
+
+  return
+  while read -l row
+    if test $counter -eq $amount
+      set -g increment (math $increment + 1)
+      set -g counter 1
+      set -g filename $filepath\_part\_$increment\.$extension
+
+      echo "Working on $filename"
+
+      if test $argv[3] = "true"
+        echo $header > $filename
+      end
+    end
+
+    echo $row >> $filename
+    set -g counter (math $counter + 1)
+  end < $filepath
+
+end
+
+function file_split_format
+  echo 'format:  file_split [filepath] [records per split] <copy headers: true, false(default)>'
+  echo 'Example: file_split ~/Documents/myfile.txt 100 true'
+end
