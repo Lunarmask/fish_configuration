@@ -18,8 +18,7 @@ function fish_prompt
     set prompt $prompt/$dir_array[$dir_array_length]
   end
   if git rev-parse --is-inside-work-tree &>/dev/null
-    set git_branch (string sub --start=3 (git branch))
-    set git_branch \($git_branch\)
+    set git_branch \((string sub --start=3 (git branch | grep '*'))\)
   end
   set_color $fish_color_cwd && echo -n $prompt
   set_color normal && echo -n " $git_branch"

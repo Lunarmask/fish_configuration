@@ -19,8 +19,8 @@ function alacritty_font_switcher
     return 1
   end
 
-  if test $argv -lt 1 || test $argv -gt 10
-    echo Invalid Value Entered. Value needs to be between 1..10
+  if test $argv -lt 1 || test $argv -gt 11
+    echo "Invalid Value Entered. Value needs to be between 1..11"
     return 1
   end
 
@@ -47,18 +47,18 @@ function alacritty_font_switcher
       set new_font "Iosevka Term Slab"
       set font_size "13.0"
     case 9
-      set new_font "JetBrains Mono"
+      set new_font "JetBrains Mono NL"
     case 10
       set new_font "Liberation Mono"
+    case 11
+      set new_font "Victor Mono"
   end
 
   set -x FONTSET $new_font
-  echo $argv $new_font > ~/.config/fish/current_font
+  echo $argv $new_font > ~/.config/alacritty/current_font
   sed -i "s/^\ \{4\}family:\ .\+/    family: $new_font/" ~/.config/alacritty/alacritty.yml
   sed -i "s/^\ \{2\}size:\ .\+/  size: $font_size/" ~/.config/alacritty/alacritty.yml
 
   echo "Font-set changed to $new_font"
-
   return 0
 end
-

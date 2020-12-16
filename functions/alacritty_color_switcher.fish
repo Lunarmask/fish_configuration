@@ -31,16 +31,16 @@ function alacritty_color_switcher
   end
 
   if test (uname) = "Linux"
-    cp ~/.config/alacritty/alacritty_linux_master.yml ~/.config/alacritty/alacritty.yml
+    cp ~/.config/alacritty/alacritty_linux_master.yml $ARC
   else if test (uname) = "Darwin"
-    cp ~/.config/alacritty/alacritty_macos_master.yml ~/.config/alacritty/alacritty.yml
+    cp ~/.config/alacritty/alacritty_macos_master.yml $ARC
   else
     echo "Did not match OS to an alacritty_master.yml"
     echo (uname)
     return 1
   end
 
-  cat ~/.config/alacritty/colorschemes/$colorscheme >> ~/.config/alacritty/alacritty.yml
+  cat ~/.config/alacritty/colorschemes/$colorscheme >> $ARC
   echo "Theme has been switched to: $colorscheme"
 
   set -x COLORSCHEME (string replace ".yaml" "" $colorscheme)

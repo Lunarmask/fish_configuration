@@ -15,10 +15,12 @@ function encrypted_image_viewer
 
   if test ! -f $argv
     echo "File not found! File is unreadable or doesn't exist."
+    return 1
   end
 
   if test ! (string match -r ".7z|.zip" $argv)
     echo "File is not a compatible type. file != .7z|.zip"
+    return 1
   end
 
   set filename $argv
@@ -31,7 +33,7 @@ function encrypted_image_viewer
   begin
     sudo mount -t tmpfs -o size=500m tmpfs $temp_dir
     and 7z x -aoa -p$archive_password $filename -o$temp_dir > /dev/null
-    and gwenview -f $temp_dir
+    and feh $temp_dir
     and sudo umount $temp_dir
   end
 
