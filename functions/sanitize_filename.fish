@@ -1,44 +1,24 @@
 # Replace whitespace and special characters
 
-function sanitize_filename
-  if test (count $argv) -gt 2
-    echo "Entered too many arguments"
-    echo $argv
+function sanitize_filename -a original_filename -d "Renames file without unwanted characters and formatting"
+
+  if test -z $original_filename
+    echo Argument is empty.
     return 1
   end
 
-  if test (count $argv) -eq 0
-    echo 'No arguments given.'
+  if ! test -e $original_filename
+    echo cannot find file: $original_filename
     return 1
   end
 
-  if string match -r '^h$|^help$' "$argv[1]"
-    echo "Please give one or two arguments"
-    echo "example 1: 'sanitize_filename png' renames *.png"
-    echo "example 2: 'sanitize_filename madmax m4a' renames madmax*.m4a"
-    return 0
-  end
-
-  if test (count $argv) -eq 2
-    for filename in (ls $argv[1]*\.$argv[2])
-      set no_whitespace (echo $filename | sed 's/\ /\_/g')
-      #set other_removal (echo $no_whitespace | sed 's/t//g')
-      #set lowercase (echo $other_removal | tr '[:upper:]' '[:lower:]')
-      set lowercase (echo $no_whitespace | tr '[:upper:]' '[:lower:]')
-      echo "'$filename' => '$lowercase'"
-      mv $filename $lowercase
-      return 0
-    end
-  end
-
-  if test (count $argv) -eq 1
-    for filename in (ls *\.$argv)
-      set no_whitespace (echo $filename | sed 's/\ /\_/g')
-      #set other_removal (echo $no_whitespace | sed 's/t//g')
-      #set lowercase (echo $other_removal | tr '[:upper:]' '[:lower:]')
-      set lowercase (echo $no_whitespace | tr '[:upper:]' '[:lower:]')
-      echo "'$filename' => '$lowercase'"
-      mv $filename $lowercase
-    end
-  end
+  set -l modified_filename (
+    echo $original_filename |
+    tr ' ' '_' | # remove whitespace
+    tr '[:upper:]' '[:lower:]' | # forces lowercase
+    sed 's/\._/_/g' | # removes ugly periods
+    sed 's|-[[:digit:]]*\.|\.|g' # removes youtube-dl identifier
+    )
+  echo "'$original_filename' => '$modified_filename'"
+  mv $original_filename $modified_filename
 end

@@ -2,7 +2,7 @@
 
 function fish_prompt
   set prompt_status $status
-  set dir_array (pwd | string replace /home/false '~' | string split /)
+  set dir_array (pwd | string replace $HOME '~' | string split /)
   set dir_array_length (count $dir_array)
   if test $dir_array_length -eq 1
     set prompt $dir_array[1]

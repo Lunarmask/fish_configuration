@@ -10,14 +10,7 @@
 #   INITIALIZE PATHS
 # ---------------------
 
-if ! contains "$HOME/.rbenv/shims" $PATH
-  status --is-interactive; and rbenv init - | source
-end
-
-if ! contains "$HOME/.rbenv/bin" $PATH
-  export "$PATH:$HOME/.rbenv/bin"
-end
-
+set PATH "~/Downloads/waterfox:$PATH"
 set NVM_DIR "$HOME/.nvm"
 set -x XDG_CONFIG_HOME "$HOME/.config"
 
@@ -31,7 +24,7 @@ set ADIR $XDG_CONFIG_HOME/alacritty
 set TDIR $XDG_CONFIG_HOME/tmux
 set NDIR $XDG_CONFIG_HOME/nvim
 set PDIR $XDG_CONFIG_HOME/personal
-set FMDIR $XDG_CONFIG_HOME/vifm
+set VFDIR $XDG_CONFIG_HOME/vifm
 set FEDIR $XDG_CONFIG_HOME/feh
 
 # ---------------------
@@ -49,7 +42,7 @@ set TRC $TDIR/tmux.conf
 set NRC $NDIR/init.vim
 set FEK $FEDIR/feh/keys
 set FET $FEDIR/feh/themes
-set FMRC $FMDIR/vifmrc
+set VFRC $FMDIR/vifmrc
 
 # ---------------------
 #      ENV SETTERS
