@@ -10,7 +10,6 @@
 #   INITIALIZE PATHS
 # ---------------------
 
-set PATH "~/Downloads/waterfox:$PATH"
 set NVM_DIR "$HOME/.nvm"
 set -x XDG_CONFIG_HOME "$HOME/.config"
 
@@ -57,6 +56,10 @@ set -x VISUAL "nvim"
 set -x BROWSER "firefox"
 set -x TERMINAL "alacritty"
 set -x FZF_CTRL_T_COMMAND "command find -L \$dir -type f 2> /dev/null | sed '1d; s#^\./##'"
+
+if test -e /usr/bin/bat
+  set -x MANPAGER "sh -c 'col -bx | bat -l man -p'"
+end
 
 if test -e $ADIR/active_colorscheme
   set -x COLORSCHEME (cat $ADIR/active_colorscheme)

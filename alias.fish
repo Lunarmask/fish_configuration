@@ -15,12 +15,21 @@ alias less "less -r"
 #     LS MAPPINGS
 # --------------------
 
-alias l "ls -AF --color --group-directories-first"
-alias ld "ls -AF --color --group-directories-first | grep '/\$'"
-alias ll "ls -lAhF --color --group-directories-first"
-alias lld "ls -lAhF --color --group-directories-first | grep '/\$'"
-alias llr "ls -lAhFtc --color | head -10"
-alias lll "ls -lAhF --group-directories-first | less"
+if test -e "/usr/bin/exa"
+  alias l "exa -aF --group-directories-first"
+  alias ld "exa -aFD"
+  alias ll "exa -lahF --group-directories-first"
+  alias lld "exa -lahFD"
+  alias llr "exa -lahF --sort=modified --reverse | head"
+  alias lll "exa -lahF --group-directories-first | bat"
+else
+  alias l "ls -AF --color --group-directories-first"
+  alias ld "ls -AF --color --group-directories-first | grep '/\$'"
+  alias ll "ls -lAhF --color --group-directories-first"
+  alias lld "ls -lAhF --color --group-directories-first | grep '/\$'"
+  alias llr "ls -lAhFtc --color | head -10"
+  alias lll "ls -lAhF --group-directories-first | less"
+end
 
 # --------------------
 # Directory Navigation
@@ -29,8 +38,8 @@ alias lll "ls -lAhF --group-directories-first | less"
 abbr gdoc "cd $HOME/Documents"
 abbr gdow "cd $HOME/Downloads"
 abbr gnas "cd $HOME/NAS_mount"
-abbr grb "cd ~/.ruby_scripts"
-abbr gex "cd ~/.elexir_scripts"
+abbr grb "cd $HOME/.ruby_scripts"
+abbr gex "cd $HOME/.elexir_scripts"
 
 # --------------------
 #         TMUX
@@ -58,6 +67,7 @@ abbr gp "git push gitlab HEAD"
 abbr gpa "git push gitlab HEAD; git push bitbucket HEAD"
 abbr glg "git log"
 abbr gum "git checkout master; and git fetch --prune; and git rebase"
+abbr gup "git checkout prod; and git fetch --prune; and git rebase"
 
 # --------------------
 #      Kubernetes
@@ -74,7 +84,7 @@ abbr kx "kubectl exec -it"
 # --------------------
 
 abbr be "bundle exec"
-abbr rs "bin/spring stop; and bin/rails s"
+abbr rs "bin/spring stop; and bin/rails s -b 0.0.0.0"
 abbr rc "bundle exec rails c"
 abbr rsp "bundle exec rspec"
 abbr swarm "SIDEKIQ_PRELOAD= SIDEKIQ_COUNT=4 bundle exec sidekiqswarm"
@@ -112,9 +122,6 @@ abbr mf "mpv --loop-playlist=inf --fs"
 
 # File Manager
 abbr vf "vifm"
-
-# Recursively serch for file with name matching regex
-abbr search "ag --silent -ug"
 
 # Get more information for linux commands
 abbr cheat "curl cheat.sh/"
