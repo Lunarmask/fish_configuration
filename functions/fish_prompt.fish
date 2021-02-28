@@ -2,26 +2,27 @@
 
 function fish_prompt
   set prompt_status $status
-  set dir_array (pwd | string replace $HOME '~' | string split /)
-  set dir_array_length (count $dir_array)
-  if test $dir_array_length -eq 1
-    set prompt $dir_array[1]
-  else
-    for i in (seq (math $dir_array_length -1))
-      if test (string sub --length 1 $dir_array[$i]) = '.'
-        set prompt $prompt (string sub --length 2 $dir_array[$i])
-      else
-        set prompt $prompt (string sub --length 1 $dir_array[$i])
-      end
-    end
-    set prompt (string join / $prompt)
-    set prompt $prompt/$dir_array[$dir_array_length]
-  end
+  test -n "$SSH_CONNECTION"; and echo -n "["(hostname)"] "
+  set_color $fish_color_cwd && echo -n (prompt_pwd)" "
+
   if git rev-parse --is-inside-work-tree &>/dev/null
-    set git_branch \((string sub --start=3 (git branch | grep '*'))\)
+    set is_git_dirty (
+      # The first checks for staged changes, the second for unstaged ones.
+      # We put them in this order because checking staged changes is *fast*.
+      not command git diff-index --ignore-submodules --cached --quiet HEAD -- >/dev/null 2>&1
+      or not command git diff --ignore-submodules --no-ext-diff --quiet --exit-code >/dev/null 2>&1
+      and echo "1"
+    )
+
+    set git_branch (git branch | grep '*' | string sub --start=3)
+
+    if test -n "$is_git_dirty"
+      set_color red && echo -n "($git_branch*)"
+    else
+      set_color normal && echo -n "($git_branch)"
+    end
   end
-  set_color $fish_color_cwd && echo -n $prompt
-  set_color normal && echo -n " $git_branch"
+
   if test $prompt_status -eq 0
     set_color green && echo "-> "
   else
