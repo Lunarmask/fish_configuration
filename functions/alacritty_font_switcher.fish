@@ -13,10 +13,31 @@ function alacritty_font_switcher
     return 1
   end
 
-  if test $argv = "list"
+  if test $argv = 'ls'
     echo "Active Font-Set: $FONTSET" \n
     cat ~/.config/alacritty/fontsets
-    return 1
+    return 0
+  end
+
+  if test $argv = 'test'
+    cat cat ~/.config/alacritty/font_test.txt
+    return 0
+  end
+
+  if test $argv = 'dl'
+    echo "
+
+    Inconsolata:
+     - 'https://fonts.google.com/specimen/Inconsolata'
+
+    Iosevka Term:
+     - 'https://github.com/be5invis/Iosevka/releases'
+
+    Fira Code:
+     - 'https://github.com/tonsky/FiraCode'
+
+    "
+    return 0
   end
 
   if test $argv -lt 1 || test $argv -gt 11
