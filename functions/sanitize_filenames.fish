@@ -14,8 +14,8 @@ function sanitize_filenames -d "Renames files without unwanted characters and fo
 
   if string match -r '^h$|^help$' "$argv[1]"
     echo "Please give one or two arguments"
-    echo "example 1: 'sanitize_filename png' renames *.png"
-    echo "example 2: 'sanitize_filename madmax m4a' renames madmax*.m4a"
+    echo "example 1: $`sanitize_filename png` renames *.png"
+    echo "example 2: $`sanitize_filename madmax m4a` renames madmax*.m4a"
     return 0
   end
 

@@ -68,6 +68,7 @@ abbr gpa "git push gitlab HEAD; git push bitbucket HEAD; git push github HEAD"
 abbr glg "git log"
 abbr gum "git checkout master; and git fetch --prune; and git rebase"
 abbr gup "git checkout prod; and git fetch --prune; and git rebase"
+abbr yolo "git push gitlab HEAD --force; git push bitbucket HEAD --force; git push github HEAD --force"
 
 # --------------------
 #      Kubernetes
