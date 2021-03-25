@@ -63,12 +63,20 @@ abbr gco "git switch"
 abbr gci "git commit"
 abbr gciv "git commit -v"
 abbr gd "git diff"
-abbr gp "git push gitlab HEAD"
-abbr gpa "git push gitlab HEAD; git push bitbucket HEAD; git push github HEAD"
 abbr glg "git log"
 abbr gum "git switch master; and git fetch --prune; and git rebase"
 abbr gup "git switch prod; and git fetch --prune; and git rebase"
+abbr gp "git push origin HEAD"
+abbr gpa "git push gitlab HEAD; git push bitbucket HEAD; git push github HEAD"
 abbr yolo "git push gitlab HEAD --force; git push bitbucket HEAD --force; git push github HEAD --force"
+
+abbr gf "git flow feature"
+abbr gfp "git flow feature pull origin"
+abbr gfs "git flow feature start"
+abbr gfd "git flow feature diff"
+abbr gfc "git flow feature checkout"
+abbr gfh "git flow hotfix"
+abbr gfhs "git flow hotfix start"
 
 # --------------------
 #      Kubernetes
