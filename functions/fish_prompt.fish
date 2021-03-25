@@ -2,7 +2,7 @@
 
 function fish_prompt
   set prompt_status $status
-  test -n "$SSH_CONNECTION"; and echo -n "["(hostname)"] "
+  test -n "$SSH_CONNECTION"; and echo -n "[$MACHINE] "
   set_color $fish_color_cwd && echo -n (prompt_pwd)" "
 
   if git rev-parse --is-inside-work-tree &>/dev/null
@@ -17,9 +17,9 @@ function fish_prompt
     set git_branch (git branch | grep '*' | string sub --start=3)
 
     if test -n "$is_git_dirty"
-      set_color red && echo -n "($git_branch*)"
+      set_color red && echo -n "($git_branch*) "
     else
-      set_color normal && echo -n "($git_branch)"
+      set_color normal && echo -n "($git_branch) "
     end
   end
 

@@ -2,3 +2,4 @@ fish_variables
 conf.d
 functions/br.fish
 functions/corona_update.fish
+completions/*

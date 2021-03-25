@@ -59,15 +59,15 @@ abbr ga "git add"
 abbr gst "git status"
 abbr gbr "git branch"
 abbr gbra "git branch -a"
-abbr gco "git checkout"
+abbr gco "git switch"
 abbr gci "git commit"
 abbr gciv "git commit -v"
 abbr gd "git diff"
 abbr gp "git push gitlab HEAD"
 abbr gpa "git push gitlab HEAD; git push bitbucket HEAD; git push github HEAD"
 abbr glg "git log"
-abbr gum "git checkout master; and git fetch --prune; and git rebase"
-abbr gup "git checkout prod; and git fetch --prune; and git rebase"
+abbr gum "git switch master; and git fetch --prune; and git rebase"
+abbr gup "git switch prod; and git fetch --prune; and git rebase"
 abbr yolo "git push gitlab HEAD --force; git push bitbucket HEAD --force; git push github HEAD --force"
 
 # --------------------
@@ -123,6 +123,9 @@ abbr mf "mpv --loop-playlist=inf --fs"
 
 # File Manager
 abbr vf "vifm"
+
+# Rsync synchronize
+abbr synchro "rsync -guvn"
 
 # Get more information for linux commands
 abbr cheat "curl cheat.sh/"

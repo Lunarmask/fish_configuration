@@ -13,6 +13,9 @@
 set NVM_DIR "$HOME/.nvm"
 set -x XDG_CONFIG_HOME "$HOME/.config"
 
+# ASDF version manager
+source ~/.asdf/asdf.fish
+
 # ---------------------
 #  DIRECTORIES ALIASES
 # ---------------------
