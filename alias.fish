@@ -4,10 +4,12 @@
 #    Copy and Paste
 # --------------------
 
-alias copy "xsel -i -b"
-alias paste "xsel -o -b"
-alias copy-select "xsel -i -p"
-alias paste-select "xsel -o -p"
+if test (uname) = "Linux"
+  alias copy "xsel -i -b"
+  alias paste "xsel -o -b"
+  alias copy-select "xsel -i -p"
+  alias paste-select "xsel -o -p"
+end
 
 alias less "less -r"
 
@@ -15,13 +17,15 @@ alias less "less -r"
 #     LS MAPPINGS
 # --------------------
 
-if test -e "/usr/bin/exa"
+test (uname) = "Darwin"; and set EXA_PATH "/usr/local/bin/exa"; or set EXA_PATH "/usr/bin/exa"
+
+if test -e $EXA_PATH
   alias l "exa -aF --group-directories-first"
   alias ld "exa -aFD"
-  alias ll "exa -lahF --group-directories-first"
-  alias lld "exa -lahFD"
-  alias llr "exa -lahF --sort=modified --reverse | head"
-  alias lll "exa -lahF --group-directories-first | bat"
+  alias ll "exa -lahgF --group-directories-first"
+  alias lld "exa -lahgFD"
+  alias llr "exa -lahgF --sort=modified --reverse | head"
+  alias lll "exa -lahgF --group-directories-first | bat"
 else
   alias l "ls -AF --color --group-directories-first"
   alias ld "ls -AF --color --group-directories-first | grep '/\$'"
